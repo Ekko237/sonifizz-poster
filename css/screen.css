@@ -46,6 +46,7 @@ body.narrow .side { display: none; }
 
 /* 真机模式：去掉外壳和场景 */
 body.real #sceneBg, body.real .scene-layer, body.real .side, body.real .k-head, body.real .k-body, body.real .k-base { display: none; }
+body.real #scene { display: flex; align-items: center; justify-content: center; background: #000; } /* 真机模式：屏幕居中，四周纯黑 */
 body.real #kiosk { width: 1080px; height: 1920px; }
 body.real .k-screen { width: 1080px; padding: 0; box-shadow: none; }
 
