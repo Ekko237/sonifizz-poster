@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SONIFIZZ 声汽海报机</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/screen.css">
+</head>
+<body class="booting">
+<!-- 电脑演示：音乐节夜景 + 立式机外壳 + 两侧说明。真机（竖屏窗口或 ?kiosk=1）只显示中间屏幕。 -->
+<div id="scene">
+  <canvas id="sceneBg" aria-hidden="true"></canvas>
+
+  <aside class="side side-left">
+    <span class="logo side-logo"><span class="logo-mark"></span><b>SONIFIZZ</b></span>
+    <h2 class="side-title">展位立式<br>触摸机</h2>
+    <p class="side-text">竖屏 <span class="dot">1080×1920</span><br>站着用手点，按钮都在下半屏</p>
+    <p class="side-note">电脑演示外壳，真机只显示中间这块屏</p>
+  </aside>
+
+  <div id="kioskSlot">
+    <div id="kiosk">
+      <div class="k-head"><span class="logo"><span class="logo-mark"></span><b>SONIFIZZ</b></span></div>
+      <div class="k-screen">
+
+<div id="stage" data-screen="idle">
+
+  <!-- 顶栏（S1-S5） -->
+  <header class="topbar">
+    <button class="logo" id="logoBtn" aria-label="SONIFIZZ"><span class="logo-mark"></span><b>SONIFIZZ</b></button>
+    <div class="topbar-right">
+      <div class="queue-chip"><span class="ico" data-icon="users"></span><span data-t="queueN" data-n="queue"></span></div>
+      <div class="timer" id="timer">
+        <svg viewBox="0 0 80 80"><circle class="timer-track" cx="40" cy="40" r="34"/><circle class="timer-fill" id="timerFill" cx="40" cy="40" r="34"/></svg>
+        <span class="dot" id="timerNum">90</span>
+      </div>
+      <button class="icon-btn" id="exitBtn" aria-label="退出"><span class="ico" data-icon="x"></span></button>
+    </div>
+    <div class="steps" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  </header>
+
+  <!-- S0 待机 -->
+  <section class="screen s-idle" data-s="idle">
+    <div class="idle-bg" id="idleBg"></div>
+    <div class="logo idle-logo"><span class="logo-mark"></span><b>SONIFIZZ</b></div>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button data-lang="zh">中</button><button data-lang="en" class="dot">EN</button>
+    </div>
+    <div class="idle-fan" id="idleFan"><canvas></canvas><canvas></canvas><canvas></canvas></div>
+    <div class="idle-copy">
+      <h1 class="idle-title" data-t="idleTitle"></h1>
+      <p class="idle-sub" data-t="idleSub"></p>
+    </div>
+    <div class="idle-actions">
+      <p class="peak-note" data-t="peakNote"></p>
+      <button class="btn btn-primary btn-hero" id="startBtn"><span data-t="start"></span><span class="ico" data-icon="hand-tap"></span></button>
+      <div class="idle-row">
+        <button class="btn btn-ghost btn-lg" id="codeBtn"><span class="ico" data-icon="device-mobile"></span><span data-t="haveCode"></span></button>
+        <div class="idle-queue">
+          <div class="qr" id="queueQr"></div>
+          <div>
+            <p class="idle-queue-title" data-t="queueScan"></p>
+            <p class="idle-queue-n"><span data-t="queueN" data-n="queue"></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S1 选人格 -->
+  <section class="screen s-persona" data-s="persona">
+    <h2 class="screen-title" data-t="s1Title"></h2>
+    <div class="persona-grid" id="personaGrid"></div>
+  </section>
+
+  <!-- S2 选风格 -->
+  <section class="screen s-style" data-s="style">
+    <h2 class="screen-title" data-t="s2Title"></h2>
+    <div class="style-grid" id="styleRow"></div>
+  </section>
+
+  <!-- S3 输入 -->
+  <section class="screen s-input" data-s="input">
+    <div class="input-preview"><canvas id="previewCanvas"></canvas></div>
+    <div class="input-form">
+      <h2 class="screen-title" data-t="s3Title"></h2>
+      <label class="field">
+        <span class="field-label"><span data-t="nick"></span><em class="dot" id="nickCount">0/8</em></span>
+        <input id="nickInput" autocomplete="off" maxlength="16">
+      </label>
+      <label class="field">
+        <span class="field-label"><span data-t="line"></span><em class="dot" id="lineCount">0/20</em></span>
+        <input id="lineInput" autocomplete="off" maxlength="40">
+      </label>
+      <p class="field-error" id="inputError" role="alert"></p>
+      <div class="presets" id="presets"></div>
+      <label class="toggle"><input type="checkbox" id="hideNick"><i></i><span data-t="hideNick"></span></label>
+    </div>
+  </section>
+
+  <!-- S4 生成中 -->
+  <section class="screen s-gen" data-s="gen">
+    <canvas id="genCanvas" width="1080" height="1920"></canvas>
+    <p class="gen-text" id="genText"></p>
+  </section>
+
+  <!-- S5 结果：海报在上，二维码和倒计时在下 -->
+  <section class="screen s-result" data-s="result">
+    <div class="result-poster"><canvas id="resultCanvas"></canvas></div>
+    <div class="result-scan">
+      <div class="qr qr-lg" id="resultQr"></div>
+      <div class="result-scan-text">
+        <h2 class="result-title" data-t="s5Scan"></h2>
+        <p class="result-gift" id="resultGift"></p>
+        <p class="result-back"><span class="ico" data-icon="clock-countdown"></span><span id="resultBack"></span></p>
+      </div>
+    </div>
+    <div class="result-actions">
+      <button class="btn btn-ghost btn-lg" id="rerollBtn"><span class="ico" data-icon="arrows-clockwise"></span><span id="rerollLabel" data-t="reroll"></span></button>
+      <button class="btn btn-ghost btn-lg" id="doneBtn"><span class="ico" data-icon="check"></span><span data-t="done"></span></button>
+    </div>
+    <button class="link-btn" id="openLocalBtn"><span class="ico" data-icon="arrow-square-out"></span><span data-t="openLocal"></span></button>
+  </section>
+
+  <!-- 底栏（S1-S3） -->
+  <footer class="bottombar">
+    <button class="btn btn-ghost btn-lg" id="backBtn"><span class="ico" data-icon="arrow-left"></span><span data-t="back"></span></button>
+    <button class="btn btn-ghost btn-lg" id="randomBtn"><span class="ico" data-icon="shuffle"></span><span data-t="random"></span></button>
+    <button class="btn btn-primary btn-xl" id="nextBtn"><span id="nextLabel" data-t="next"></span><span class="ico" data-icon="arrow-right"></span></button>
+  </footer>
+
+  <!-- 弹层：还在吗 -->
+  <div class="modal" id="stillModal" hidden>
+    <div class="modal-card">
+      <h3 class="modal-title" data-t="stillThere"></h3>
+      <p class="modal-sub dot" id="stillSub"></p>
+      <button class="btn btn-primary btn-xl" id="imHereBtn" data-t="imHere"></button>
+    </div>
+  </div>
+
+  <!-- 弹层：取号码（从下往上，键盘在手够得着的位置） -->
+  <div class="modal modal-bottom" id="codeModal" hidden>
+    <div class="modal-card">
+      <button class="icon-btn modal-close" id="codeClose" aria-label="关闭"><span class="ico" data-icon="x"></span></button>
+      <h3 class="modal-title" data-t="codeTitle"></h3>
+      <p class="modal-sub" data-t="codeSub"></p>
+      <div class="code-slots dot" id="codeSlots"><i></i><i></i><i></i><i></i></div>
+      <p class="field-error" id="codeError" role="alert"></p>
+      <div class="numpad" id="numpad"></div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      <div class="k-body">
+        <div class="k-grille" aria-hidden="true"></div>
+        <p class="k-plate">扫码保存 · 到展位领一罐</p>
+      </div>
+      <div class="k-base" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <aside class="side side-right">
+    <p class="side-step dot" id="sideStep"></p>
+    <h2 class="side-title" id="sideName"></h2>
+    <p class="side-text" id="sideDesc"></p>
+    <p class="side-timer" id="sideTimer" hidden><span class="ico" data-icon="clock-countdown"></span><span>本轮上限 <b class="dot" id="sideRound">90</b> 秒</span></p>
+  </aside>
+</div>
+
+<script src="vendor/icons.js"></script>
+<script src="vendor/qrcode.js"></script>
+<script src="js/config.js"></script>
+<script src="js/store.js"></script>
+<script src="js/safety.js"></script>
+<script src="js/poster.js"></script>
+<script src="js/scene.js"></script>
+<script src="js/screen.js"></script>
+</body>
+</html>

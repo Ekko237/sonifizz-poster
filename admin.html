@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>运营后台 | SONIFIZZ</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="booting">
+<main class="a-wrap">
+  <header class="a-head">
+    <span class="logo"><span class="logo-mark"></span><b>SONIFIZZ</b></span>
+    <h1>运营后台</h1>
+    <p class="a-hint">原型数据存在本机浏览器，大屏和手机页在同一台电脑上打开才会汇总到这里</p>
+    <a class="btn btn-primary a-back" href="index.html"><span class="ico" data-icon="arrow-left"></span>回到大屏</a>
+  </header>
+
+  <section class="a-kpis" id="kpis"></section>
+
+  <div class="a-grid">
+    <section class="a-panel">
+      <h2><span class="ico" data-icon="sliders-horizontal"></span>时长与开关</h2>
+      <form id="paramForm" class="a-form" onsubmit="return false"></form>
+      <div class="a-actions">
+        <button class="btn btn-ghost a-btn" id="resetBtn">恢复默认</button>
+        <span class="a-saved" id="savedTip" hidden>已保存，下一轮生效</span>
+      </div>
+    </section>
+
+    <section class="a-panel">
+      <h2><span class="ico" data-icon="chart-bar"></span>人格分布</h2>
+      <div class="bars" id="personaBars"></div>
+      <h2 class="a-gap"><span class="ico" data-icon="chart-bar"></span>风格分布</h2>
+      <div class="bars" id="styleBars"></div>
+      <h2 class="a-gap"><span class="ico" data-icon="shield-check"></span>拦截数</h2>
+      <div class="bars" id="blockBars"></div>
+    </section>
+
+    <section class="a-panel">
+      <h2><span class="ico" data-icon="lock-simple"></span>安全词表</h2>
+      <p class="a-note">导流信息（网址、手机号、微信号、@账号）由规则自动拦，不用加词。正式版在词表之后再过云内容安全接口。</p>
+      <div class="words" id="words"></div>
+      <form class="word-add" id="wordForm" onsubmit="return false">
+        <select id="wordCat" aria-label="类别"><option value="word">敏感词</option><option value="brand">品牌安全</option></select>
+        <input id="wordInput" placeholder="输入要拦的词" aria-label="要拦的词" maxlength="20">
+        <button class="btn btn-primary a-btn" id="wordAddBtn">添加</button>
+      </form>
+      <button class="link" id="wordResetBtn">恢复示例词表</button>
+
+      <h2 class="a-gap"><span class="ico" data-icon="flag"></span>举报</h2>
+      <div id="reports" class="a-reports"></div>
+      <div class="a-actions">
+        <button class="btn btn-ghost a-btn" id="exportBtn"><span class="ico" data-icon="download-simple"></span>导出 CSV</button>
+        <button class="btn btn-ghost a-btn" id="clearBtn">清空今日数据</button>
+      </div>
+    </section>
+  </div>
+</main>
+<script src="vendor/icons.js"></script>
+<script src="js/config.js"></script>
+<script src="js/store.js"></script>
+<script src="js/safety.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

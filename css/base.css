@@ -1,0 +1,62 @@
+/* SONIFIZZ 声汽海报机 · 共用基础样式
+   主题锁定：深色。品牌色 = 界面强调色 = 荧光黄，全站只有这一个强调色。
+   字体：点阵字 Doto 只覆盖英文和数字（字体本身不含中文字形），中文自动回落到系统黑体。 */
+
+@font-face {
+  font-family: "Doto";
+  src: url("../vendor/fonts/Doto.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --bg: #0c0c0d;
+  --bg-2: #161618;
+  --bg-3: #212124;
+  --line: #2e2e33;
+  --field-line: #6a6a72;     /* 输入框描边，对深底 ≥ 3:1 */
+  --text: #f3f3ef;
+  --text-2: #b4b4ae;
+  --brand: #e2ff2e;          /* SONIFIZZ 荧光黄：品牌色 + 界面强调色 */
+  --brand-ink: #0c0c0d;      /* 黄底上的文字 */
+  --danger: #ff5a4e;
+
+  --font-cn: "PingFang SC", "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  --font-display: "Doto", var(--font-cn);   /* 英文数字走点阵，中文走系统黑体 */
+  --font-body: -apple-system, "Helvetica Neue", Arial, var(--font-cn);
+
+  --r: 20px;                 /* 圆角体系：容器、输入框、数字键 = 20px；容器内嵌的图 = 12px；按钮和标签 = 全胶囊 */
+  --r-in: 12px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--text); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+input { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+a { color: inherit; text-decoration: none; }
+
+.dot { font-family: var(--font-display); font-weight: 900; letter-spacing: 0.02em; }
+.ico { display: inline-flex; width: 1em; height: 1em; }
+.ico svg { width: 100%; height: 100%; }
+
+/* 按钮：全胶囊，主按钮黄底黑字 */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5em;
+  border-radius: 999px; font-weight: 700; white-space: nowrap;
+  transition: transform 0.18s var(--ease), background 0.2s, opacity 0.2s;
+}
+.btn:active { transform: scale(0.97); }
+.btn-primary { background: var(--brand); color: var(--brand-ink); }
+.btn-ghost { background: var(--bg-3); color: var(--text); }
+.btn[disabled] { opacity: 0.32; pointer-events: none; }
+
+/* 品牌标：简单几何（圆 + 三个上升气泡）+ 点阵字标 */
+.logo { display: inline-flex; align-items: center; gap: 0.4em; color: var(--brand); }
+.logo svg { width: 1.3em; height: 1.3em; }
+.logo b { font-family: var(--font-display); font-weight: 900; letter-spacing: 0.04em; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}

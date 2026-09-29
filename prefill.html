@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c0c0d">
+<title>排队预填 | SONIFIZZ</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/mobile.css">
+</head>
+<body class="booting">
+<main class="m-wrap">
+  <header class="m-head">
+    <span class="logo"><span class="logo-mark"></span><b>SONIFIZZ</b></span>
+  </header>
+  <div class="pf-steps" id="pfSteps"><i></i><i></i><i></i><i></i></div>
+
+  <section data-step="1">
+    <h1 class="m-title" data-k="t1">你是哪一派？</h1>
+    <div class="pf-list" id="pfPersonas" style="margin-top:16px"></div>
+  </section>
+
+  <section data-step="2" hidden>
+    <h1 class="m-title" data-k="t2">选一个海报风格</h1>
+    <div class="pf-styles" id="pfStyles" style="margin-top:16px"></div>
+  </section>
+
+  <section data-step="3" hidden>
+    <h1 class="m-title" data-k="t3">写下你的一句话</h1>
+    <div style="display:flex;flex-direction:column;gap:14px;margin-top:16px">
+      <label class="m-field"><span><b data-k="nick" style="font-weight:inherit">昵称</b><em class="dot" id="pfNickCount">0/8</em></span><input id="pfNick" maxlength="16" autocomplete="off"></label>
+      <label class="m-field"><span><b data-k="line" style="font-weight:inherit">一句话</b><em class="dot" id="pfLineCount">0/20</em></span><input id="pfLine" maxlength="40" autocomplete="off"></label>
+      <p class="m-err" id="pfErr" role="alert"></p>
+      <p class="m-sub" data-k="presets">不想打字？点一句</p>
+      <div class="m-presets" id="pfPresets"></div>
+      <label class="m-toggle"><input type="checkbox" id="pfHide"><span data-k="hide">大屏上不显示我的昵称</span></label>
+    </div>
+  </section>
+
+  <section data-step="4" hidden>
+    <div class="ticket">
+      <p class="m-sub" data-k="codeLabel">你的取号码</p>
+      <p class="num dot" id="pfCode"></p>
+      <p class="m-sub" id="pfWait"></p>
+    </div>
+    <h2 class="m-title" style="font-size:22px;margin-top:24px" data-k="howTitle">轮到你时怎么做</h2>
+    <p class="m-sub" style="margin-top:8px" data-k="howText">在大屏首页点「已在手机填好」，输入上面 4 位数字，10 秒出图。</p>
+  </section>
+
+  <footer class="pf-foot" id="pfFoot">
+    <button class="btn btn-ghost m-btn" id="pfBack" aria-label="上一步" data-k-label="back" hidden><span class="ico" data-icon="arrow-left"></span></button>
+    <button class="btn btn-primary m-btn" id="pfNext" disabled>下一步</button>
+  </footer>
+</main>
+
+<script src="vendor/icons.js"></script>
+<script src="js/config.js"></script>
+<script src="js/store.js"></script>
+<script src="js/safety.js"></script>
+<script src="js/poster.js"></script>
+<script src="js/prefill.js"></script>
+</body>
+</html>
