@@ -50,13 +50,17 @@ body.booting #kioskSlot, body.booting .side, body.booting .scene-dots { opacity:
   box-shadow: inset 0 0 0 2px #2c2c31, inset 0 18px 30px rgba(0,0,0,0.6);
   display: flex; align-items: flex-end; justify-content: center; gap: 30px; padding-bottom: 6px; }
 @property --lvl { syntax: "<number>"; inherits: true; initial-value: 0; }
+/* 台面：罐子图下面那截是倒影（50 宽时约 34px），台面上沿和罐身底部齐平，倒影落在台面上，罐子是站着的 */
+.k-window::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 40px; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.16), rgba(255,255,255,0.05) 2px, color-mix(in srgb, var(--glow) 10%, #141417) 3px, #0a0a0c); }
+.k-can { z-index: 1; }
 .k-can { position: relative; display: block; transform-origin: 50% 100%; --lvl: 0; transition: transform 0.42s var(--ease), --lvl 0.6s var(--ease); }
 .k-can.pouring { transition: transform 0.42s var(--ease), --lvl 1.5s cubic-bezier(0.2, 0.7, 0.3, 1); } /* 和屏幕里的液面一样先快后慢、1.5 秒涨满 */
 .k-window img { width: 50px; height: auto; display: block; transition: filter 0.42s var(--ease); filter: brightness(0.82); }
 .k-can.on { transform: translateY(-6px) scale(1.06); } /* 罐子 50 宽约 145 高，抬起放大后也要整罐留在 170 高的展示窗里 */
 .k-can.on img { filter: brightness(1.08) drop-shadow(0 0 14px color-mix(in srgb, var(--glow) 70%, transparent)); }
 /* 罐身里的液面：一块人格色的半透明液面盖在罐身上，顶上一道亮线，高度跟着步骤涨 */
-.k-fill { position: absolute; left: 13%; right: 13%; bottom: 5%; height: calc(var(--lvl) * 88%); border-radius: 3px 3px 7px 7px; pointer-events: none; mix-blend-mode: screen;
+.k-fill { position: absolute; left: 13%; right: 13%; bottom: 25%; height: calc(var(--lvl) * 69%); border-radius: 3px 3px 7px 7px; pointer-events: none; mix-blend-mode: screen;
   background: linear-gradient(to top, color-mix(in srgb, var(--glow) 75%, transparent), color-mix(in srgb, var(--glow) 40%, transparent));
   box-shadow: inset 0 3px 0 rgba(255,255,255,0.95), 0 0 10px color-mix(in srgb, var(--glow) 60%, transparent); opacity: calc(var(--lvl) * 8); }
 .k-plate { font-family: var(--font-cn); font-size: 30px; font-weight: 700; color: var(--brand); letter-spacing: 0.08em; }
