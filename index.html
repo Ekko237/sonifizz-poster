@@ -2,26 +2,53 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,interactive-widget=resizes-visual">
 <title>SONIFIZZ 声汽海报机</title>
+<meta name="description" content="音乐节展位上的竖屏触摸机网页原型：选一派、写一句话，一分钟印成自己的海报，扫码带走，再凭海报到展位领一罐。">
+<link rel="icon" href="assets/brand/favicon-1.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon-1.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SONIFIZZ 声汽海报机">
+<meta property="og:description" content="音乐节展位上的竖屏触摸机网页原型：选一派、写一句话，一分钟印成自己的海报，扫码带走，再凭海报到展位领一罐。">
+<meta property="og:image" content="https://ekko237.github.io/sonifizz-poster/assets/brand/og-1.jpg">
+<meta property="og:url" content="https://ekko237.github.io/sonifizz-poster/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0c0c0d">
+<link rel="stylesheet" href="vendor/fonts/smiley/result.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/screen.css">
 </head>
 <body class="booting">
+<div class="rotate-tip" id="rotateTip"><span class="ico" data-icon="device-mobile"></span><p data-t="rotateTip"></p></div>
 <!-- 电脑演示：音乐节夜景 + 立式机外壳 + 两侧说明。真机（竖屏窗口或 ?kiosk=1）只显示中间屏幕。 -->
 <div id="scene">
-  <canvas id="sceneBg" aria-hidden="true"></canvas>
+  <div class="scene-dots" aria-hidden="true"></div>
+  <div class="scene-haze" aria-hidden="true"></div>
+  <div class="scene-shade" aria-hidden="true"></div>
 
   <aside class="side side-left">
     <span class="logo side-logo"><span class="logo-mark"></span><b>SONIFIZZ</b></span>
-    <h2 class="side-title">展位立式<br>触摸机</h2>
-    <p class="side-text">竖屏 <span class="dot">1080×1920</span><br>站着用手点，按钮都在下半屏</p>
-    <p class="side-note">电脑演示外壳，真机只显示中间这块屏</p>
+    <h2 class="side-title" id="demoTitle"></h2>
+    <p class="side-text" id="demoText"></p>
+    <div class="side-ask" id="tourAsk" hidden>
+      <p id="tourAskText"></p>
+      <button class="btn btn-primary side-btn" id="tourYes"><span class="ico" data-icon="hand-tap"></span><span id="tourYesLabel"></span></button>
+      <button class="btn btn-ghost side-btn" id="tourNo"></button>
+    </div>
+    <button class="btn btn-ghost side-btn" id="tourBtn"><span class="ico" data-icon="hand-tap"></span><span id="tourLabel"></span></button>
+    <nav class="side-links" id="demoLinks">
+      <a id="lnkShare" target="_blank" rel="noopener"><span class="ico" data-icon="device-mobile"></span><span></span></a>
+      <a id="lnkPrefill" target="_blank" rel="noopener"><span class="ico" data-icon="qr-code"></span><span></span></a>
+      <a id="lnkAdmin" href="admin.html" target="_blank" rel="noopener"><span class="ico" data-icon="sliders-horizontal"></span><span></span></a>
+      <button id="boothBtn" type="button"><span class="ico" data-icon="arrows-out"></span><span data-t="boothOn"></span></button>
+    </nav>
+    <p class="side-note" id="demoNote"></p>
   </aside>
+  <button class="btn btn-ghost booth-exit" id="boothExit"><span class="ico" data-icon="arrows-in"></span><span data-t="boothOff"></span></button>
 
   <div id="kioskSlot">
     <div id="kiosk">
-      <div class="k-head"><span class="logo"><span class="logo-mark"></span><b>SONIFIZZ</b></span></div>
+      <div class="k-head" aria-hidden="true"></div>
       <div class="k-screen">
 
 <div id="stage" data-screen="idle">
@@ -35,7 +62,8 @@
         <svg viewBox="0 0 80 80"><circle class="timer-track" cx="40" cy="40" r="34"/><circle class="timer-fill" id="timerFill" cx="40" cy="40" r="34"/></svg>
         <span class="dot" id="timerNum">90</span>
       </div>
-      <button class="icon-btn" id="exitBtn" aria-label="退出"><span class="ico" data-icon="x"></span></button>
+      <button class="icon-btn" id="soundBtn"><span class="ico" data-icon="speaker-high"></span></button>
+      <button class="icon-btn" id="exitBtn" aria-label="退出"><span class="ico" data-icon="x"></span><span class="exit-tip" data-t="exitTip"></span></button>
     </div>
     <div class="steps" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   </header>
@@ -43,7 +71,9 @@
   <!-- S0 待机 -->
   <section class="screen s-idle" data-s="idle">
     <div class="idle-bg" id="idleBg"></div>
+    <div class="idle-fizz" aria-hidden="true"></div>
     <div class="logo idle-logo"><span class="logo-mark"></span><b>SONIFIZZ</b></div>
+    <button class="icon-btn idle-sound" id="soundBtnIdle"><span class="ico" data-icon="speaker-high"></span></button>
     <div class="lang-toggle" role="group" aria-label="Language">
       <button data-lang="zh">中</button><button data-lang="en" class="dot">EN</button>
     </div>
@@ -51,6 +81,7 @@
     <div class="idle-copy">
       <h1 class="idle-title" data-t="idleTitle"></h1>
       <p class="idle-sub" data-t="idleSub"></p>
+      <button class="link-btn idle-help" id="tourQ" hidden><span class="ico" data-icon="hand-tap"></span><span id="tourQLabel"></span></button>
     </div>
     <div class="idle-actions">
       <p class="peak-note" data-t="peakNote"></p>
@@ -62,6 +93,7 @@
           <div>
             <p class="idle-queue-title" data-t="queueScan"></p>
             <p class="idle-queue-n"><span data-t="queueN" data-n="queue"></span></p>
+            <p class="idle-today" id="idleToday"></p>
           </div>
         </div>
       </div>
@@ -70,12 +102,17 @@
 
   <!-- S1 选人格 -->
   <section class="screen s-persona" data-s="persona">
+    <div class="title-row">
+      <p class="step-eyebrow dot">01 / 04</p>
+      <button class="tap-btn" id="tapBtn"><span class="ico" data-icon="hand-tap"></span><span data-t="tapAsk"></span></button>
+    </div>
     <h2 class="screen-title" data-t="s1Title"></h2>
     <div class="persona-grid" id="personaGrid"></div>
   </section>
 
   <!-- S2 选风格 -->
   <section class="screen s-style" data-s="style">
+    <p class="step-eyebrow dot">02 / 04</p>
     <h2 class="screen-title" data-t="s2Title"></h2>
     <div class="style-grid" id="styleRow"></div>
   </section>
@@ -84,18 +121,24 @@
   <section class="screen s-input" data-s="input">
     <div class="input-preview"><canvas id="previewCanvas"></canvas></div>
     <div class="input-form">
+      <p class="step-eyebrow dot">03 / 04</p>
       <h2 class="screen-title" data-t="s3Title"></h2>
-      <label class="field">
-        <span class="field-label"><span data-t="nick"></span><em class="dot" id="nickCount">0/8</em></span>
-        <input id="nickInput" autocomplete="off" maxlength="16">
-      </label>
+      <div class="field">
+        <div class="field-label"><label for="nickInput" data-t="nick"></label><label class="toggle toggle-sm"><input type="checkbox" id="hideNick"><i></i><span data-t="hideNickShort"></span></label><em class="dot" id="nickCount">0/8</em></div>
+        <input id="nickInput" autocomplete="off" maxlength="16" enterkeyhint="next">
+      </div>
+      <p class="field-error" id="nickError" role="alert"></p>
       <label class="field">
         <span class="field-label"><span data-t="line"></span><em class="dot" id="lineCount">0/20</em></span>
-        <input id="lineInput" autocomplete="off" maxlength="40">
+        <input id="lineInput" autocomplete="off" maxlength="40" enterkeyhint="go">
       </label>
+      <div class="type-voice">
+        <button class="tv-play" id="tvPlay"><span class="ico" data-icon="speaker-high"></span></button>
+        <div class="tv-bars" id="tvBars" aria-hidden="true"></div>
+        <button class="tv-mic" id="tvMic"><span class="ico" data-icon="microphone"></span><span data-t="micSay"></span></button>
+      </div>
       <p class="field-error" id="inputError" role="alert"></p>
       <div class="presets" id="presets"></div>
-      <label class="toggle"><input type="checkbox" id="hideNick"><i></i><span data-t="hideNick"></span></label>
     </div>
   </section>
 
@@ -107,14 +150,18 @@
 
   <!-- S5 结果：海报在上，二维码和倒计时在下 -->
   <section class="screen s-result" data-s="result">
-    <div class="result-poster"><canvas id="resultCanvas"></canvas></div>
+    <div class="result-poster"><canvas id="resultCanvas"></canvas><img class="result-can" id="resultCan" alt="" decoding="async"></div>
     <div class="result-scan">
       <div class="qr qr-lg" id="resultQr"></div>
       <div class="result-scan-text">
-        <h2 class="result-title" data-t="s5Scan"></h2>
+        <h2 class="result-title"><span class="for-kiosk" data-t="s5Scan"></span><span class="for-phone" data-t="s5Ready"></span></h2>
         <p class="result-gift" id="resultGift"></p>
         <p class="result-back"><span class="ico" data-icon="clock-countdown"></span><span id="resultBack"></span></p>
       </div>
+    </div>
+    <div class="result-phone">
+      <button class="btn btn-primary btn-lg" id="saveLocalBtn"><span class="ico" data-icon="download-simple"></span><span data-t="saveLocal"></span></button>
+      <button class="btn btn-ghost btn-lg" id="openShareBtn"><span class="ico" data-icon="arrow-square-out"></span><span data-t="openShare"></span></button>
     </div>
     <div class="result-actions">
       <button class="btn btn-ghost btn-lg" id="rerollBtn"><span class="ico" data-icon="arrows-clockwise"></span><span id="rerollLabel" data-t="reroll"></span></button>
@@ -127,15 +174,27 @@
   <footer class="bottombar">
     <button class="btn btn-ghost btn-lg" id="backBtn"><span class="ico" data-icon="arrow-left"></span><span data-t="back"></span></button>
     <button class="btn btn-ghost btn-lg" id="randomBtn"><span class="ico" data-icon="shuffle"></span><span data-t="random"></span></button>
-    <button class="btn btn-primary btn-xl" id="nextBtn"><span id="nextLabel" data-t="next"></span><span class="ico" data-icon="arrow-right"></span></button>
+    <button class="btn btn-primary btn-xl" id="nextBtn"><span id="nextLabel" data-t="next" aria-live="polite"></span><span class="ico" data-icon="arrow-right"></span></button>
   </footer>
 
   <!-- 弹层：还在吗 -->
   <div class="modal" id="stillModal" hidden>
     <div class="modal-card">
       <h3 class="modal-title" data-t="stillThere"></h3>
-      <p class="modal-sub dot" id="stillSub"></p>
+      <p class="modal-sub" id="stillSub"></p>
       <button class="btn btn-primary btn-xl" id="imHereBtn" data-t="imHere"></button>
+    </div>
+  </div>
+
+  <!-- 弹层：拍节奏帮你选 -->
+  <div class="modal" id="tapModal" hidden>
+    <div class="modal-card tap-card">
+      <button class="icon-btn modal-close" id="tapClose" aria-label="关闭"><span class="ico" data-icon="x"></span></button>
+      <h3 class="modal-title" data-t="tapTitle"></h3>
+      <p class="modal-sub" data-t="tapSub"></p>
+      <button class="tap-pad dot" id="tapPad" data-t="tapPad"></button>
+      <div class="tap-dots" id="tapDots"><i></i><i></i><i></i><i></i></div>
+      <p class="tap-result" id="tapResult" role="status"></p>
     </div>
   </div>
 
@@ -154,28 +213,38 @@
 
       </div>
       <div class="k-body">
-        <div class="k-grille" aria-hidden="true"></div>
-        <p class="k-plate">扫码保存 · 到展位领一罐</p>
+        <div class="k-window" id="kCans" aria-hidden="true"></div>
+        <p class="k-plate" id="kPlate">扫码保存　到展位领一罐</p>
       </div>
       <div class="k-base" aria-hidden="true"></div>
     </div>
+    <div class="k-glow" aria-hidden="true"></div>
   </div>
 
   <aside class="side side-right">
     <p class="side-step dot" id="sideStep"></p>
     <h2 class="side-title" id="sideName"></h2>
     <p class="side-text" id="sideDesc"></p>
-    <p class="side-timer" id="sideTimer" hidden><span class="ico" data-icon="clock-countdown"></span><span>本轮上限 <b class="dot" id="sideRound">90</b> 秒</span></p>
+    <p class="side-timer" id="sideTimer" hidden><span class="ico" data-icon="clock-countdown"></span><span id="sideRound"></span></p>
+    <figure class="side-phone" id="sidePhone">
+      <div class="phone"><iframe id="phoneFrame" title="手机上的页面"></iframe></div>
+      <figcaption id="phoneCap"></figcaption>
+    </figure>
   </aside>
 </div>
+
+<p class="copyright">© 2026 余梓维 Ziwei Yu</p>
 
 <script src="vendor/icons.js"></script>
 <script src="vendor/qrcode.js"></script>
 <script src="js/config.js"></script>
 <script src="js/store.js"></script>
 <script src="js/safety.js"></script>
+<script src="vendor/budoux-zh.js"></script>
 <script src="js/poster.js"></script>
+<script src="js/sound.js"></script>
 <script src="js/scene.js"></script>
 <script src="js/screen.js"></script>
+<script src="js/tour.js"></script>
 </body>
 </html>

@@ -15,19 +15,82 @@ body { font-family: var(--font-cn); min-height: 100dvh; }
 /* 分享页 */
 .poster-img { width: 100%; aspect-ratio: 9 / 16; border-radius: var(--r); display: block; background: var(--bg-2); -webkit-touch-callout: default; }
 .save-hint { text-align: center; font-size: 14px; color: var(--text-2); }
-.gift { background: var(--brand); color: var(--brand-ink); border-radius: var(--r); padding: 22px 20px; display: flex; flex-direction: column; gap: 10px; }
-.gift h3 { font-size: 22px; font-weight: 900; line-height: 1.3; }
-.gift p { font-size: 15px; font-weight: 600; }
-.gift .code { font-size: 44px; letter-spacing: 0.12em; }
-.gift .btn { height: 64px; font-size: 18px; background: var(--brand-ink); color: var(--brand); }
-.gift.used { background: var(--bg-3); color: var(--text-2); }
-.gift.used .btn { background: var(--bg-2); color: var(--text-2); }
+.sh { display: flex; flex-direction: column; gap: 20px; }
+.sh-motto { margin-top: 6px; }
+/* 海报后面衬这一派的颜色光 */
+.poster-stage { position: relative; }
+.poster-stage::before { content: ""; position: absolute; left: -4%; right: -4%; top: 10%; bottom: -6%; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--pc, var(--brand)) 40%, transparent), transparent); }
+.poster-stage .poster-box { position: relative; box-shadow: 0 30px 60px rgba(0,0,0,0.55); }
+.embed .poster-stage { width: 72%; margin: 0 auto; }
+/* 领罐券：左边是这一派的口味罐，两侧打孔，店员核销时盖章 */
+.ticket-gift { position: relative; display: grid; grid-template-columns: 70px 1fr; gap: 4px 14px; padding: 18px 18px 18px 14px; border-radius: var(--r);
+  background: var(--brand); color: var(--brand-ink); overflow: hidden; transition: background 0.26s var(--ease), color 0.26s var(--ease); }
+.ticket-gift::before, .ticket-gift::after { content: ""; position: absolute; top: calc(50% - 30px); width: 22px; height: 22px; border-radius: 50%; background: var(--bg); }
+.ticket-gift::before { left: -11px; }
+.ticket-gift::after { right: -11px; }
+.tg-can { width: 58px; height: auto; align-self: center; justify-self: center; transform: rotate(-8deg); filter: drop-shadow(6px 10px 10px rgba(0,0,0,0.25)); transition: filter 0.26s var(--ease); }
+.tg-body { display: flex; flex-direction: column; gap: 6px; }
+.tg-body h3 { font-size: 20px; font-weight: 900; line-height: 1.3; }
+.tg-where { display: flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 700; }
+.ticket-gift .code { font-size: 40px; letter-spacing: 0.12em; line-height: 1.1; }
+.tg-limit { font-size: 13px; font-weight: 600; opacity: 0.72; }
+.ticket-gift .btn { grid-column: 1 / -1; height: 60px; margin-top: 10px; font-size: 18px; background: var(--brand-ink); color: var(--brand); position: relative; overflow: hidden; touch-action: none; -webkit-user-select: none; user-select: none; }
+.ticket-gift .btn::before { content: ""; position: absolute; inset: 0; background: color-mix(in srgb, var(--brand) 28%, transparent); transform: scaleX(0); transform-origin: 0 50%; }
+.ticket-gift .btn.holding::before { transform: scaleX(1); transition: transform 0.8s linear; } /* 长按时进度条从左走到右 */
+.ticket-gift .btn > * { position: relative; }
+.tg-stamp { position: absolute; right: 16px; top: 16px; padding: 6px 12px; border: 3px solid currentColor; border-radius: 10px; font-size: 20px; font-weight: 900;
+  letter-spacing: 0.06em; opacity: 0; transform: rotate(-12deg) scale(0.6); pointer-events: none; }
+.ticket-gift.used { background: var(--bg-3); color: var(--text-2); }
+.ticket-gift.used .tg-can { filter: grayscale(1) brightness(0.7); }
+.ticket-gift.used .btn { background: var(--bg-2); color: var(--text-2); }
+.ticket-gift.used .tg-stamp { opacity: 1; transform: rotate(-12deg) scale(1); color: var(--text); }
+@media (prefers-reduced-motion: no-preference) {
+  .ticket-gift.just-used .tg-stamp { animation: stamp 0.42s cubic-bezier(0.2, 1.6, 0.4, 1) both; }
+  @keyframes stamp { from { opacity: 0; transform: rotate(-12deg) scale(2.2); } }
+}
 .invite { background: var(--bg-2); border-radius: var(--r); padding: 22px 20px; display: flex; flex-direction: column; gap: 14px; }
 .invite h3 { font-size: 20px; font-weight: 800; }
+.invite-cans { display: flex; justify-content: space-between; align-items: flex-end; height: 104px; }
+.invite-cans a { display: flex; align-items: flex-end; justify-content: center; min-width: 44px; height: 100%; }
+.invite-cans img { width: 30px; height: auto; filter: drop-shadow(0 8px 10px rgba(0,0,0,0.35)); transition: transform 0.26s var(--ease); }
+.invite-cans a:active img { transform: scale(0.92); }
+.invite-cans a.best img { transform: translateY(-12px) scale(1.14); filter: drop-shadow(0 0 14px color-mix(in srgb, var(--brand) 55%, transparent)); }
+/* 合拍卡 */
+.duo { display: flex; flex-direction: column; gap: 14px; padding: 18px; border-radius: var(--r); background: var(--bg-2); }
+.duo h3 { font-size: 20px; font-weight: 800; }
+.duo-img { width: 100%; aspect-ratio: 4 / 5; border-radius: var(--r-in); background: var(--bg-3); display: block; box-shadow: 0 20px 40px rgba(0,0,0,0.45); }
+.pf-invite { padding: 12px 14px; border-radius: var(--r-in); background: color-mix(in srgb, var(--brand) 14%, var(--bg-2)); color: var(--text); font-size: 15px; font-weight: 700; line-height: 1.5; }
+.match { font-size: 15px; line-height: 1.5; color: var(--text-2); margin-top: -4px; }
+.match b { color: var(--text); }
+/* 声纹：和海报上同一条，点「听一听」用这一派的音色弹一遍，柱子依次亮 */
+.voice { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 10px 14px; padding: 14px 16px; border-radius: var(--r); background: var(--bg-2); }
+.voice-play { height: 48px; padding: 0 16px; border-radius: 999px; background: var(--brand); color: var(--brand-ink); display: inline-flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; }
+.voice-play:active { transform: scale(0.96); }
+.voice-bars { height: 44px; display: flex; align-items: center; gap: 3px; }
+.voice-bars i { flex: 1; height: calc(10% + var(--a) * 90%); border-radius: 2px; background: color-mix(in srgb, var(--pc, var(--brand)) 65%, white); opacity: 0.7; }
+.voice-cap { grid-column: 1 / -1; display: flex; gap: 8px; flex-wrap: wrap; font-size: 14px; color: var(--text-2); }
+.voice-cap span + span { color: var(--text); }
+@media (prefers-reduced-motion: no-preference) {
+  .voice-bars.playing i { animation: barLit 0.38s var(--ease) both; }
+  @keyframes barLit { 40% { opacity: 1; transform: scaleY(1.4); background: var(--brand); } }
+}
 .m-foot { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-2); }
 .m-foot button { display: inline-flex; align-items: center; gap: 6px; min-height: 64px; padding: 0 4px; font-size: 14px; color: var(--text-2); }
+/* 电脑上看分享页：左边海报（滚动时停住），右边标题、声纹、保存和领罐 */
+@media (min-width: 900px) {
+  .page-share .m-wrap { max-width: 1000px; padding-top: 32px; }
+  .sh { display: grid; grid-template-columns: min(420px, (100vh - 48px) * 9 / 16) minmax(0, 1fr); grid-template-rows: repeat(7, auto); column-gap: 56px; row-gap: 20px; align-items: start; }
+  .sh > * { grid-column: 2; }
+  .sh > .poster-stage { grid-column: 1; grid-row: 1 / -1; position: sticky; top: 24px; }
+  .sh .m-title { font-size: 40px; }
+}
 .invalid { text-align: center; padding: 80px 0 20px; display: flex; flex-direction: column; gap: 16px; align-items: center; }
 .invalid .ico { font-size: 56px; color: var(--text-2); }
+.invalid .m-btn { max-width: 360px; }
+/* 坏链接：提示整块在屏幕中间，底部免责和版权一起居中 */
+body.bad-link .invalid { min-height: calc(100svh - 170px); justify-content: center; padding: 24px 0; }
+body.bad-link .m-foot { justify-content: center; }
 
 /* 底部弹出层 */
 .sheet-mask { position: fixed; inset: 0; background: rgba(8,8,9,0.7); display: flex; align-items: flex-end; justify-content: center; z-index: 10; }
@@ -46,10 +109,17 @@ body { font-family: var(--font-cn); min-height: 100dvh; }
 .pf-item b { font-size: 22px; font-weight: 900; }
 .pf-item span { font-size: 14px; opacity: 0.85; }
 .pf-item.sel { box-shadow: 0 0 0 4px var(--brand); }
-.pf-styles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pf-item { position: relative; overflow: hidden; padding-right: 76px; }
+.pf-item b, .pf-item span { position: relative; z-index: 1; }
+.pf-can { position: absolute; right: 10px; top: 8px; width: 40px; height: auto; transform: rotate(12deg); filter: drop-shadow(-4px 6px 8px rgba(0,0,0,0.3));
+  transition: transform 0.26s var(--ease); pointer-events: none; }
+.pf-item.sel .pf-can { transform: rotate(0deg) translateY(-4px); }
+.pf-styles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-bottom: 96px; }
+.pf-note { margin-top: 10px; font-size: 13px; line-height: 1.5; color: var(--text-2); }
 .pf-style { background: var(--bg-2); border-radius: var(--r); padding: 10px; display: flex; flex-direction: column; gap: 8px; align-items: center; font-size: 17px; font-weight: 800; }
 .pf-style canvas { width: 100%; aspect-ratio: 9 / 16; border-radius: var(--r-in); }
 .pf-style.sel { box-shadow: 0 0 0 4px var(--brand); }
+.pf-style .pf-desc { margin-top: -6px; font-size: 13px; font-weight: 600; color: var(--text-2); }
 .m-field { display: flex; flex-direction: column; gap: 8px; }
 .m-field span { display: flex; justify-content: space-between; font-size: 15px; font-weight: 700; color: var(--text-2); }
 .m-field input { height: 64px; border-radius: var(--r); border: 2px solid var(--field-line); background: var(--bg-2); padding: 0 16px; font-size: 20px; outline: none; }
@@ -61,6 +131,9 @@ body { font-family: var(--font-cn); min-height: 100dvh; }
 .m-toggle input { width: 22px; height: 22px; accent-color: var(--brand); }
 .ticket { background: var(--bg-2); border-radius: var(--r); padding: 28px 20px; text-align: center; display: flex; flex-direction: column; gap: 10px; }
 .ticket .num { font-size: 88px; color: var(--brand); letter-spacing: 0.1em; line-height: 1; }
+.pf-hint { min-height: 20px; margin-bottom: -12px; text-align: center; font-size: 14px; font-weight: 700; color: var(--text-2); }
+.pf-preview { margin: 18px auto 0; width: 62%; display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center; }
+.pf-preview canvas { width: 100%; aspect-ratio: 9 / 16; border-radius: var(--r-in); background: var(--bg-3); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
 .pf-foot { position: sticky; bottom: 0; padding: 12px 0 4px; background: linear-gradient(transparent, var(--bg) 30%); display: flex; gap: 12px; }
 .pf-foot #pfNext { flex: 1; }
 .pf-foot .btn-ghost { width: 64px; flex: none; padding: 0; }
@@ -75,3 +148,31 @@ body.booting .m-wrap { opacity: 0; }
   .poster-box:not(.loaded) { animation: waiting 1.2s ease-in-out infinite; }
   @keyframes waiting { 50% { opacity: 0.55; } }
 }
+
+.m-copy { text-align: center; font-size: 12px; color: #8a8a85; letter-spacing: 0.02em; }
+
+/* 拿号页：选了哪一派、哪种风格，凭海报领哪一罐 */
+.pf-pick { display: flex; align-items: center; gap: 16px; margin-top: 16px; padding: 14px 18px; border-radius: var(--r); background: var(--bg-2); }
+.pf-pick-can { width: 44px; height: auto; transform: rotate(-8deg); filter: drop-shadow(4px 8px 10px rgba(0,0,0,0.35)); }
+.pf-pick-text { display: flex; flex-direction: column; gap: 4px; }
+.pf-pick-text b { font-size: 20px; font-weight: 900; }
+.pf-pick-text span { font-size: 15px; color: var(--text-2); }
+
+/* 电脑上打开排队预填页：按手机大小放在一台手机框里居中，四周是和大屏演示一样的点阵底 */
+@media (min-width: 900px) and (min-height: 700px) {
+  .page-prefill { background: var(--bg) radial-gradient(circle, rgba(243,243,239,0.08) 1.6px, transparent 2px) 0 0 / 28px 28px; }
+  .page-prefill .m-wrap { max-width: 420px; margin: 32px auto; padding: 28px 20px 36px; border-radius: 40px; background: var(--bg);
+    box-shadow: inset 0 0 0 2px #2c2c31, 0 0 0 10px #111113, 0 0 0 12px #2c2c31, 0 40px 90px rgba(0,0,0,0.7); }
+}
+
+/* 手机页的大标题用得意黑（只用在 28px 以上的标题，小标题留系统黑体） */
+.m-title, .nf-title { font-family: var(--font-head); font-weight: 400; font-synthesis: none; letter-spacing: 0.01em; line-height: 1.15; }
+.m-title .qm { margin-left: -0.32em; }
+
+/* 海报动画和重播 */
+.poster-box .reveal-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* 重播放在海报下面右边，不压海报上的字 */
+.replay-btn { position: relative; z-index: 1; display: flex; align-items: center; gap: 6px; min-height: 44px; margin: 8px 0 -8px auto; padding: 0 4px; color: var(--text-2); font-size: 14px; font-weight: 700; }
+.replay-btn .ico { width: 16px; height: 16px; }
+.page-share .m-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.page-share .m-row .m-btn { min-width: 0; padding: 0 5px; font-size: clamp(12px, 3.4vw, 16px); }

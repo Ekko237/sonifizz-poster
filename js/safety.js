@@ -6,8 +6,9 @@
 
   /* 示例词表（原型演示用，运营后台可增删）。不放真实的政治敏感词，正式版交给接口。 */
   var DEFAULT_WORDS = {
-    word: ["垃圾", "去死", "滚蛋", "脑残", "废物", "智障", "约炮", "裸聊", "色情", "赌博", "博彩", "代开发票", "毒品", "敏感词示例", "laji", "收票", "转票", "代抢"],
-    brand: ["难喝", "假货", "过期", "拉肚子", "山寨", "竞品汽水"]
+    word: ["垃圾", "去死", "滚蛋", "脑残", "废物", "智障", "约炮", "裸聊", "色情", "赌博", "博彩", "代开发票", "毒品", "laji", "收票", "转票", "代抢",
+      "傻逼", "傻b", "煞笔", "沙比", "傻比", "操你", "草泥马", "尼玛", "你妈", "他妈", "妈的", "鸡巴", "婊子", "贱人", "狗日", "脑瘫", "死全家", "滚犊子"],
+    brand: ["难喝", "假货", "过期", "拉肚子", "山寨", "可口可乐", "百事", "元气森林", "农夫山泉", "怡宝", "雪碧", "芬达", "七喜", "美年达", "健力宝", "红牛", "东方树叶", "coca-cola", "cocacola", "pepsi", "sprite", "fanta"]
   };
   SF.words = function () {
     try { var w = JSON.parse(localStorage.getItem("sf.words")); if (w && w.word && w.brand) return w; } catch (e) {}
@@ -19,6 +20,11 @@
   /* 字数：中文算 1，英文数字半角算 0.5 */
   function units(s) { var n = 0; for (var ch of s) n += /[\x00-\xff]/.test(ch) ? 0.5 : 1; return n; }
   SF.textUnits = units;
+  SF.clampUnits = function (s, limit) { // 截到不超过 limit 个字
+    var out = "", n = 0;
+    for (var ch of s) { var w = /[\x00-\xff]/.test(ch) ? 0.5 : 1; if (n + w > limit) break; out += ch; n += w; }
+    return out;
+  };
 
   /* 预处理：全角转半角、去零宽和控制字符、统一小写、中文数字转阿拉伯数字 */
   var CN_NUM = { "零": "0", "〇": "0", "一": "1", "幺": "1", "二": "2", "两": "2", "三": "3", "四": "4", "五": "5", "六": "6", "七": "7", "八": "8", "九": "9" };
@@ -66,6 +72,9 @@
     var en = lang === "en";
     if (r.reason === "empty") return en ? "Fill in both boxes" : "昵称和一句话都要填";
     if (r.reason === "length") return r.field === "nick" ? (en ? "Nickname: 8 characters max" : "昵称最多 8 个字") : (en ? "Your line: 20 characters max" : "一句话最多 20 个字");
+    if (r.reason === "brand") return en ? "Keep other brands off the poster" : "海报上不提别家的牌子";
+    if (r.reason === "contact") return r.field === "nick" ? (en ? "No contact info or links in your nickname" : "昵称里不能留联系方式和网址") : (en ? "No contact info or links on the poster" : "海报上不能留联系方式和网址");
+    if (r.field === "nick") return en ? "That nickname can't go on screen. Try another?" : "这个昵称不太适合上屏，换一个试试？";
     return en ? "That line can't go on screen. Try another?" : "这句话不太适合上屏，换一句试试？";
   };
 })();

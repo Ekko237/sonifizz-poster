@@ -5,10 +5,20 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0c0c0d">
 <title>我的音乐人格海报 | SONIFIZZ</title>
+<meta name="description" content="在音乐节的声汽海报机上做的海报：保存、分享，凭海报到展位领一罐。">
+<link rel="icon" href="assets/brand/favicon-1.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon-1.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="我的音乐人格海报 | SONIFIZZ">
+<meta property="og:description" content="在音乐节的声汽海报机上做的海报：保存、分享，凭海报到展位领一罐。">
+<meta property="og:image" content="https://ekko237.github.io/sonifizz-poster/assets/brand/og-1.jpg">
+<meta property="og:url" content="https://ekko237.github.io/sonifizz-poster/share.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="vendor/fonts/smiley/result.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/mobile.css">
 </head>
-<body class="booting">
+<body class="booting page-share">
 <main class="m-wrap">
   <header class="m-head">
     <span class="logo"><span class="logo-mark"></span><b>SONIFIZZ</b></span>
@@ -16,26 +26,49 @@
 
   <!-- 正常态 -->
   <section id="okView" hidden>
-    <div style="display:flex;flex-direction:column;gap:20px">
-      <div>
+    <div class="sh">
+      <header>
         <h1 class="m-title" id="pTitle"></h1>
-        <p class="m-sub" id="pMotto" style="margin-top:6px"></p>
+        <p class="m-sub sh-motto" id="pMotto"></p>
+      </header>
+      <div class="poster-stage">
+        <div class="poster-box" id="posterBox"><img class="poster-img" id="posterImg" alt=""><canvas id="revealCanvas" class="reveal-canvas" width="720" height="1280" aria-hidden="true" hidden></canvas></div>
+        <button class="replay-btn" id="replayBtn" type="button"><span class="ico" data-icon="arrows-clockwise"></span><span id="replayLabel"></span></button>
       </div>
-      <div class="poster-box" id="posterBox"><img class="poster-img" id="posterImg" alt=""></div>
-      <button class="btn btn-primary m-btn" id="saveBtn"><span class="ico" data-icon="download-simple"></span><span data-k="save">保存图片</span></button>
+      <div class="voice">
+        <button class="voice-play" id="voicePlay"><span class="ico" data-icon="speaker-high"></span><span data-k="listen">听一听</span></button>
+        <div class="voice-bars" id="voiceBars" aria-hidden="true"></div>
+        <p class="voice-cap"><span data-k="voiceCap">这句话的声纹</span><span id="voiceLine"></span></p>
+      </div>
+      <div class="m-row">
+        <button class="btn btn-primary m-btn" id="saveBtn"><span class="ico" data-icon="download-simple"></span><span data-k="save">保存图片</span></button>
+        <button class="btn btn-ghost m-btn" id="videoBtn" type="button"><span class="ico" data-icon="download-simple"></span><span id="videoLabel"></span></button>
+        <button class="btn btn-ghost m-btn" id="shareBtn"><span class="ico" data-icon="share-network"></span><span data-k="share">分享给朋友</span></button>
+      </div>
       <p class="save-hint" data-k="saveHint">也可以长按图片保存到相册</p>
-      <button class="btn btn-ghost m-btn" id="shareBtn"><span class="ico" data-icon="share-network"></span><span data-k="share">分享给朋友</span></button>
 
-      <div class="gift" id="gift">
-        <h3 id="giftTitle"></h3>
-        <p id="giftWhere"></p>
-        <p class="code dot" id="giftCode"></p>
-        <p data-k="limit">每张海报限领一次</p>
-        <button class="btn" id="redeemBtn"><span class="ico" data-icon="gift"></span><span id="redeemLabel">店员核销</span></button>
+      <div class="duo" id="duoBox" hidden>
+        <h3 id="duoTitle"></h3>
+        <img class="duo-img" id="duoImg" alt="">
+        <button class="btn btn-primary m-btn" id="duoSave"><span class="ico" data-icon="download-simple"></span><span data-k="duoSave">保存合拍卡</span></button>
+      </div>
+
+      <div class="ticket-gift" id="gift">
+        <img class="tg-can" id="giftCan" alt="" decoding="async">
+        <div class="tg-body">
+          <h3 id="giftTitle"></h3>
+          <p class="tg-where"><span class="ico" data-icon="map-pin"></span><span id="giftWhere"></span></p>
+          <p class="code dot" id="giftCode"></p>
+          <p class="tg-limit" data-k="limit">每张海报限领一次</p>
+        </div>
+        <button class="btn" id="redeemBtn"><span class="ico" data-icon="gift"></span><span id="redeemLabel">店员长按核销</span></button>
+        <span class="tg-stamp" id="giftStamp" aria-hidden="true"></span>
       </div>
 
       <div class="invite">
         <h3 data-k="invite">你朋友是哪一派？</h3>
+        <p class="match" id="match"></p>
+        <div class="invite-cans" id="inviteCans"></div>
         <a class="btn btn-ghost m-btn pf-link" href="prefill.html"><span class="ico" data-icon="qr-code"></span><span data-k="makeOne">我也做一张</span></a>
       </div>
     </div>
@@ -53,6 +86,7 @@
     <span data-k="aiNote">本图由 AI 生成，仅供娱乐</span>
     <button id="reportBtn"><span class="ico" data-icon="flag"></span><span data-k="report">举报</span></button>
   </footer>
+  <p class="m-copy">© 2026 余梓维 Ziwei Yu</p>
 </main>
 
 <div class="sheet-mask" id="reportSheet" hidden>
@@ -68,10 +102,14 @@
 </div>
 
 <script src="vendor/icons.js"></script>
+<script src="vendor/qrcode.js"></script>
 <script src="js/config.js"></script>
 <script src="js/store.js"></script>
 <script src="js/safety.js"></script>
+<script src="vendor/budoux-zh.js"></script>
 <script src="js/poster.js"></script>
+<script src="js/sound.js"></script>
+<script src="js/reveal.js"></script>
 <script src="js/share.js"></script>
 </body>
 </html>

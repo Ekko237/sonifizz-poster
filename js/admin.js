@@ -38,12 +38,13 @@
   $("resetBtn").onclick = function () { SF.resetSettings(); renderForm(); };
 
   /* ---------- 词表 ---------- */
-  var CAT = { word: "敏感词", brand: "品牌安全" };
+  var CAT = { word: "敏感词", brand: "品牌安全" }, openCat = {}; // 词多，默认收起只显示条数；刚加过词的那一类保持展开
   function renderWords() {
     var w = SF.words(), box = $("words"); box.innerHTML = "";
     Object.keys(CAT).forEach(function (cat) {
-      var g = document.createElement("div"); g.className = "word-group";
-      g.innerHTML = "<p>" + CAT[cat] + "（" + w[cat].length + "）</p>";
+      var g = document.createElement("details"); g.className = "word-group"; g.open = !!openCat[cat];
+      g.ontoggle = function () { openCat[cat] = g.open; };
+      g.innerHTML = '<summary><span class="ico" data-icon="caret-right"></span>' + CAT[cat] + "（" + w[cat].length + "）</summary>";
       var list = document.createElement("div"); list.className = "chips";
       w[cat].forEach(function (word, i) {
         var chip = document.createElement("button"); chip.className = "chip"; chip.type = "button";
@@ -60,7 +61,7 @@
     var v = $("wordInput").value.trim(), cat = $("wordCat").value;
     if (!v) return;
     var w = SF.words(); if (w[cat].indexOf(v) < 0) w[cat].push(v);
-    SF.saveWords(w); $("wordInput").value = ""; renderWords();
+    openCat[cat] = true; SF.saveWords(w); $("wordInput").value = ""; renderWords();
   };
   $("wordResetBtn").onclick = function () { SF.resetWords(); renderWords(); };
 
@@ -90,7 +91,7 @@
       ["分享页打开 / 核销", s.shareOpens + " / " + (s.redeems || 0)],
       ["拦截总数", blockedTotal]
     ];
-    $("kpis").innerHTML = k.map(function (x) { return '<div class="kpi"><p>' + x[0] + '</p><b class="dot">' + x[1] + "</b></div>"; }).join("");
+    $("kpis").innerHTML = k.map(function (x) { return '<div class="kpi"><p>' + x[0] + '</p><b>' + x[1] + "</b></div>"; }).join("");
     bars($("personaBars"), SF.PERSONAS.map(function (p) { return [p.zh, s.persona[p.id] || 0]; }));
     bars($("styleBars"), SF.STYLES.map(function (x) { return [x.zh, s.style[x.id] || 0]; }));
     bars($("blockBars"), [["敏感词", s.blocked.word], ["导流信息", s.blocked.contact], ["品牌安全", s.blocked.brand], ["非法字符", s.blocked.format], ["超长", s.blocked.length], ["伪造链接", s.blocked.tamper]]);

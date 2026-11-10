@@ -24,6 +24,7 @@
   --font-cn: "PingFang SC", "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
   --font-display: "Doto", var(--font-cn);   /* 英文数字走点阵，中文走系统黑体 */
   --font-body: -apple-system, "Helvetica Neue", Arial, var(--font-cn);
+  --font-head: "Smiley Sans Oblique", var(--font-cn); /* 中文大标题：得意黑（斜体），只有一个字重，不再加粗 */
 
   --r: 20px;                 /* 圆角体系：容器、输入框、数字键 = 20px；容器内嵌的图 = 12px；按钮和标签 = 全胶囊 */
   --r-in: 12px;
@@ -47,10 +48,11 @@ a { color: inherit; text-decoration: none; }
   border-radius: 999px; font-weight: 700; white-space: nowrap;
   transition: transform 0.18s var(--ease), background 0.2s, opacity 0.2s;
 }
-.btn:active { transform: scale(0.97); }
+.btn:active { transform: scale(0.96); }
+:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; } /* 键盘操作时的焦点框用品牌黄 */
 .btn-primary { background: var(--brand); color: var(--brand-ink); }
 .btn-ghost { background: var(--bg-3); color: var(--text); }
-.btn[disabled] { opacity: 0.32; pointer-events: none; }
+.btn[disabled] { background: var(--bg-3); color: rgba(243,243,239,0.42); pointer-events: none; } /* 还不能点：深灰底、半透明字，一眼看出是「还没好」 */
 
 /* 品牌标：简单几何（圆 + 三个上升气泡）+ 点阵字标 */
 .logo { display: inline-flex; align-items: center; gap: 0.4em; color: var(--brand); }

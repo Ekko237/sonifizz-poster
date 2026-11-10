@@ -5,16 +5,27 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0c0c0d">
 <title>排队预填 | SONIFIZZ</title>
+<meta name="description" content="排队时先在手机上选好、写好，拿一个 4 位取号码，轮到时 10 秒出图。">
+<link rel="icon" href="assets/brand/favicon-1.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon-1.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="排队预填 | SONIFIZZ">
+<meta property="og:description" content="排队时先在手机上选好、写好，拿一个 4 位取号码，轮到时 10 秒出图。">
+<meta property="og:image" content="https://ekko237.github.io/sonifizz-poster/assets/brand/og-1.jpg">
+<meta property="og:url" content="https://ekko237.github.io/sonifizz-poster/prefill.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="vendor/fonts/smiley/result.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/mobile.css">
 </head>
-<body class="booting">
+<body class="booting page-prefill">
 <main class="m-wrap">
   <header class="m-head">
     <span class="logo"><span class="logo-mark"></span><b>SONIFIZZ</b></span>
   </header>
   <div class="pf-steps" id="pfSteps"><i></i><i></i><i></i><i></i></div>
 
+  <p class="pf-invite" id="pfInvite" hidden></p>
   <section data-step="1">
     <h1 class="m-title" data-k="t1">你是哪一派？</h1>
     <div class="pf-list" id="pfPersonas" style="margin-top:16px"></div>
@@ -43,21 +54,34 @@
       <p class="num dot" id="pfCode"></p>
       <p class="m-sub" id="pfWait"></p>
     </div>
+    <div class="pf-pick">
+      <img class="pf-pick-can" id="pfPickCan" alt="" decoding="async">
+      <div class="pf-pick-text"><b id="pfPickName"></b><span id="pfPickStyle"></span><span id="pfPickGift"></span></div>
+    </div>
+    <figure class="pf-preview">
+      <canvas id="pfPreview"></canvas>
+      <figcaption class="m-sub" data-k="previewCap">你的海报预览，轮到你时大屏印的就是这一张</figcaption>
+    </figure>
     <h2 class="m-title" style="font-size:22px;margin-top:24px" data-k="howTitle">轮到你时怎么做</h2>
-    <p class="m-sub" style="margin-top:8px" data-k="howText">在大屏首页点「已在手机填好」，输入上面 4 位数字，10 秒出图。</p>
+    <p class="m-sub" style="margin-top:8px" data-k="howText">在大屏首页点「输入取号码」，输入上面 4 位数字，10 秒出图。</p>
+    <p class="pf-note" data-k="protoNote">原型演示：号码存在这台设备的浏览器里，请在同一台设备上打开大屏页输入。</p>
   </section>
 
+  <p class="pf-hint" id="pfHint" aria-live="polite"></p>
   <footer class="pf-foot" id="pfFoot">
     <button class="btn btn-ghost m-btn" id="pfBack" aria-label="上一步" data-k-label="back" hidden><span class="ico" data-icon="arrow-left"></span></button>
     <button class="btn btn-primary m-btn" id="pfNext" disabled>下一步</button>
   </footer>
+  <p class="m-copy">© 2026 余梓维 Ziwei Yu</p>
 </main>
 
 <script src="vendor/icons.js"></script>
 <script src="js/config.js"></script>
 <script src="js/store.js"></script>
 <script src="js/safety.js"></script>
+<script src="vendor/budoux-zh.js"></script>
 <script src="js/poster.js"></script>
+<script src="js/sound.js"></script>
 <script src="js/prefill.js"></script>
 </body>
 </html>
