@@ -1,5 +1,5 @@
 /* 外壳缩放：真机模式（窗口本身是竖的，或网址带 ?kiosk=1）：屏幕 1080×1920 铺满窗口。
-   电脑演示：整台立式机（1220×2224，含外壳）按窗口高度缩放，居中，两侧放说明。 */
+   电脑演示：整台立式机（1220×2254，含外壳）按窗口高度缩放，居中，两侧放说明。 */
 (function () {
   var $ = function (id) { return document.getElementById(id); };
   var stage = $("stage"), kiosk = $("kiosk"), slot = $("kioskSlot");
@@ -24,7 +24,7 @@
     stage.style.height = stageH + "px"; stage.style.setProperty("--xh", stageH - 1920 + "px");
     kiosk.style.height = real ? stageH + "px" : "";
     var booth = !real && document.body.classList.contains("booth"); // 放大展位屏：电脑上只留屏幕
-    var w = real || booth ? SW : 1220, h = real ? stageH : booth ? 1920 : 2224;
+    var w = real || booth ? SW : 1220, h = real ? stageH : booth ? 1920 : 2254;
     var k = real ? Math.min(vw / w, vh / h) : Math.min((vh - 24) / h, (vw - 32) / w);
     kiosk.style.transform = "scale(" + k + ")";
     slot.style.width = w * k + "px"; slot.style.height = h * k + "px";

@@ -30,7 +30,7 @@ body.booting #kioskSlot, body.booting .side, body.booting .scene-dots { opacity:
   @keyframes drift { to { transform: scale(1.06) translateY(-1%); } }
 }
 #kioskSlot { position: relative; z-index: 1; grid-column: 2; } /* 两侧说明收起时也留在中间一栏 */
-#kiosk { position: absolute; left: 0; top: 0; width: 1220px; height: 2224px; transform-origin: 0 0; display: flex; flex-direction: column; align-items: center; z-index: 1; }
+#kiosk { position: absolute; left: 0; top: 0; width: 1220px; height: 2254px; transform-origin: 0 0; display: flex; flex-direction: column; align-items: center; z-index: 1; }
 
 /* 外壳：阳极氧化的深色铝机身（左右暗、中间亮，像圆角柱面受光），顶部点阵灯牌，屏下是装着六罐的展示窗，底座 */
 .k-head, .k-body {
@@ -44,16 +44,16 @@ body.booting #kioskSlot, body.booting .side, body.booting .scene-dots { opacity:
 /* 屏幕玻璃：一道很淡的斜向反光，不挡点击 */
 .k-screen::after { content: ""; position: absolute; inset: 24px; border-radius: 6px; pointer-events: none; z-index: 20;
   background: linear-gradient(115deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 22%, rgba(255,255,255,0) 40%); }
-.k-body { height: 200px; border-radius: 0 0 40px 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
-.k-window { position: relative; width: 760px; height: 136px; border-radius: 18px; overflow: hidden;
+.k-body { height: 230px; border-radius: 0 0 40px 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+.k-window { position: relative; width: 760px; height: 170px; border-radius: 18px; overflow: hidden;
   background: radial-gradient(80% 120% at 50% 100%, color-mix(in srgb, var(--glow) 22%, #0b0b0d), #070708 70%);
   box-shadow: inset 0 0 0 2px #2c2c31, inset 0 18px 30px rgba(0,0,0,0.6);
   display: flex; align-items: flex-end; justify-content: center; gap: 30px; padding-bottom: 6px; }
 @property --lvl { syntax: "<number>"; inherits: true; initial-value: 0; }
 .k-can { position: relative; display: block; transform-origin: 50% 100%; --lvl: 0; transition: transform 0.42s var(--ease), --lvl 0.6s var(--ease); }
 .k-can.pouring { transition: transform 0.42s var(--ease), --lvl 1.5s cubic-bezier(0.2, 0.7, 0.3, 1); } /* 和屏幕里的液面一样先快后慢、1.5 秒涨满 */
-.k-window img { width: 56px; height: auto; display: block; transition: filter 0.42s var(--ease); filter: brightness(0.82); }
-.k-can.on { transform: translateY(-10px) scale(1.12); }
+.k-window img { width: 50px; height: auto; display: block; transition: filter 0.42s var(--ease); filter: brightness(0.82); }
+.k-can.on { transform: translateY(-6px) scale(1.06); } /* 罐子 50 宽约 145 高，抬起放大后也要整罐留在 170 高的展示窗里 */
 .k-can.on img { filter: brightness(1.08) drop-shadow(0 0 14px color-mix(in srgb, var(--glow) 70%, transparent)); }
 /* 罐身里的液面：一块人格色的半透明液面盖在罐身上，顶上一道亮线，高度跟着步骤涨 */
 .k-fill { position: absolute; left: 13%; right: 13%; bottom: 5%; height: calc(var(--lvl) * 88%); border-radius: 3px 3px 7px 7px; pointer-events: none; mix-blend-mode: screen;
