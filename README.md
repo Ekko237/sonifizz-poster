@@ -1,3 +1,25 @@
+# SONIFIZZ Poster
+
+A festival touch-kiosk poster prototype. At a music-festival booth, a visitor picks a persona, writes a line, and prints a poster to take away by QR code. SONIFIZZ is a fictional sparkling-water brand.
+
+**Live demo:** https://ekko237.github.io/sonifizz-poster/
+
+## Run locally
+
+No install or build. Open `index.html` directly, or serve the folder so the pour animation can sample illustration colors:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then open http://localhost:8000/ .
+
+## License
+
+Code is released under the [MIT License](LICENSE).
+
+---
+
 # SONIFIZZ 声汽海报机
 
 音乐节展位上的竖屏触摸机网页原型：路过的人选一派、写一句话，一分钟印成自己的海报，扫码带走，再凭海报到展位领一罐气泡水。SONIFIZZ 是虚构的气泡水品牌。
