@@ -501,7 +501,7 @@ body.kiosk .copyright { display: none; }
 .idle-title, .screen-title, .p-card .p-name, .result-title, .modal-title, .gen-text, .side-title {
   font-family: var(--font-head); font-weight: 400; font-synthesis: none; letter-spacing: 0.01em; line-height: 1.1; }
 .p-card .p-name { -webkit-text-stroke: 1.4px currentColor; } /* 得意黑只有一个字重，浅色卡上补一点粗细 */
-.idle-title .qm, .screen-title .qm, .modal-title .qm { margin-left: -0.32em; }
+.idle-title .qm, .screen-title .qm, .modal-title .qm { margin-left: -0.06em; }
 
 /* 手机和竖着的平板上看大屏（手机上画面逻辑宽 900、整块约缩到 0.43 倍）：
    能点的东西看得见的大小就到 108 以上（375 宽的小手机上也有 45px），说明小字不小于 32（约 14px） */

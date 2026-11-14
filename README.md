@@ -1,111 +1,90 @@
-<p align="center">
-  English · <a href="README.zh-CN.md">中文</a>
+# SONIFIZZ 声汽海报机
+
+音乐节展位上的竖屏触摸机网页原型：路过的人选一派、写一句话，一分钟印成自己的海报，扫码带走，再凭海报到展位领一罐气泡水。SONIFIZZ 是虚构的气泡水品牌。
+
+**在线体验：** https://ekko237.github.io/sonifizz-poster/
+
+<p>
+  <img src="docs/idle.webp" alt="电脑上的演示：中间是立式触摸机，左右两栏是说明" width="100%">
 </p>
 
-<h1 align="center">SONIFIZZ Poster</h1>
+## 怎么玩
 
-<p align="center">A vertical touch-kiosk web prototype for a music-festival booth. Passers-by pick a persona, write a line, and have it printed as their own poster in a minute, take it away by QR code, then pick up a can of sparkling water at the booth with the poster. SONIFIZZ is a fictional sparkling-water brand.</p>
-
-<p align="center">
-  <a href="https://ekko237.github.io/sonifizz-poster/"><img src="https://img.shields.io/badge/live_demo-ekko237.github.io-24292f?style=flat" alt="Live demo" /></a>
-  &nbsp;
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-24292f?style=flat&amp;logo=github&amp;logoColor=white" alt="MIT License" /></a>
-</p>
-
-<p align="center">
-  <a href="https://ekko237.github.io/sonifizz-poster/">
-    <img src="docs/idle.webp" alt="Desktop demo: a standing touch kiosk in the center, with notes in the columns on either side" width="100%">
-  </a>
-</p>
-
-## How to play
-
-1. **Pick a persona.** Six music personas match six flavors. Not sure? Tap a rhythm 4 times. It recommends a persona from the speed and how steady you are, and the BPM is printed on the poster.
-2. **Pick a style and write a line.** Four looks (neon night, vintage screen print, pop collage, minimal Swiss). Write a nickname and one line. You can tap the microphone and say it once, turning your own voice into the voiceprint on the poster.
-3. **Take it away by QR code.** The poster fills from the bottom up like a glass of sparkling water, then flies to the result page. Scan with a phone to open the share page, where you can save the image, save it as a video, and share it with friends, and pick up a can at the booth with the redemption code on the page.
+1. **选一派。** 六种音乐人格对应六种口味。拿不准就拍 4 下节奏，按快慢和稳不稳推荐一派，BPM 印在海报上。
+2. **选风格、写一句话。** 四种画风（霓虹夜场、复古丝印、波普拼贴、极简瑞士），写一个昵称和一句话。可以点麦克风念一遍，把自己的声音变成海报上的声纹。
+3. **扫码带走。** 海报像一杯气水从下往上倒满，然后飞到结果页。手机扫码打开分享页，可以存图、存成视频、分享给朋友，凭页面上的核销码到展位领一罐。
 
 <table>
   <tr>
-    <td width="33%"><img src="docs/persona.webp" alt="Choose a music persona" width="100%"></td>
-    <td width="33%"><img src="docs/input.webp" alt="Write a line" width="100%"></td>
-    <td width="33%"><img src="docs/result.webp" alt="Result page: the poster and the QR code" width="100%"></td>
+    <td width="33%"><img src="docs/persona.webp" alt="选音乐人格" width="100%"></td>
+    <td width="33%"><img src="docs/input.webp" alt="写一句话" width="100%"></td>
+    <td width="33%"><img src="docs/result.webp" alt="结果页：海报和二维码" width="100%"></td>
   </tr>
 </table>
 
-## Four pages
+## 四个页面
 
-| Page | File | Contents |
-| --- | --- | --- |
-| Big screen | `index.html` | The kiosk itself. On a computer it shows the whole standing machine and the notes on both sides. In a portrait window, or when the URL has `?kiosk=1`, it shows only the screen and fills the window |
-| Phone share page | `share.html` | Opens after the scan: replay the pour, listen to the line's voiceprint, save the image or the video, redeem a can, invite friends |
-| Queue prefill page | `prefill.html` | While waiting in line, choose and fill it in on your phone first, get a 4-digit pickup number, and enter it on the big screen when it is your turn |
-| Admin console | `admin.html` | Adjust parameters such as the length of each round and how many times the poster can be swapped. See the persona and style distribution, block counts, and reports, and manage the sensitive-word list. Tapping the logo 5 times in a row on the big screen opens it too |
+| 页面 | 文件 | 内容 |
+|---|---|---|
+| 大屏 | `index.html` | 触摸机本体。电脑上显示整台立式机和两侧说明，竖着的窗口或网址带 `?kiosk=1` 时只显示屏幕、铺满窗口 |
+| 手机分享页 | `share.html` | 扫码后打开：重演倒汽、听这句话的声纹、存图存视频、核销领罐、邀请朋友 |
+| 排队预填页 | `prefill.html` | 排队时在手机上先选好填好，拿一个 4 位取号码，轮到自己在大屏上输入 |
+| 运营后台 | `admin.html` | 调整每轮时长、换一张次数等参数，看人格和风格分布、拦截数、举报，管理敏感词表。在大屏上连点 logo 5 次也能进入 |
 
 <table>
   <tr>
-    <td width="30%"><img src="docs/share.webp" alt="Phone share page: poster, listen, save, and redeem" width="100%"></td>
-    <td width="70%"><img src="docs/admin.webp" alt="Admin console: data cards, parameters, persona distribution, and the safety word list" width="100%"></td>
+    <td width="30%"><img src="docs/share.webp" alt="手机分享页：海报、听一听、保存和核销" width="100%"></td>
+    <td width="70%"><img src="docs/admin.webp" alt="运营后台：数据卡片、参数、人格分布和安全词表" width="100%"></td>
   </tr>
 </table>
 
-## Design notes
+## 设计要点
 
-* **Words a visitor writes only go into the layout.** The nickname and the line end up as text laid over the poster, and never enter the image-generation prompt. Diversion info (URLs, phone numbers, WeChat IDs, account names) and sensitive words are blocked with the same rules in three places: the big screen, the prefill page, and the share page.
-* **The same seed draws the same picture.** A poster is decided by the persona, the style, and a random seed. The share link carries only those parameters. The phone redraws from the seed, with no image upload.
-* **Poster backgrounds are a pool generated ahead of time.** `assets/pool` holds six personas times four styles, 4 AI-generated backgrounds in each group, and `assets/pool/s` holds the matching small images. The text, voiceprint, and brand bar on the poster are drawn on the canvas on the spot by `js/poster.js`.
-* **All sound is synthesized on the spot.** Each of the six personas has a signature tone. While generating, the line's voiceprint is played as a short melody. There are no audio files.
-* **Occupancy control.** Each round has a time limit. If it sits idle, a "Still there?" prompt appears. After a countdown on the result page it returns to the home screen. Peak mode shortens the time and turns off swapping the poster.
-* **First-time guide.** The first time it opens, it asks whether you want a walkthrough, pointing at what to tap.
-* **Chinese and English.** Switch language at the top right of the big screen. The phone pages follow.
+- **用户写的字只进排版。** 昵称和一句话最后作为文字叠在海报上，永远不进图像生成的提示词。导流信息（网址、手机号、微信号、账号）和敏感词在大屏、预填页、分享页三处用同一套规则拦下。
+- **同一个种子画出同一张图。** 海报由人格、风格和随机种子决定，分享链接只带这几项参数，手机上按种子重画，不用上传图片。
+- **海报底图是预先生成的素材池。** `assets/pool` 里六种人格乘四种风格，每组 4 张 AI 生成的底图，`assets/pool/s` 是对应的小图；海报上的文字、声纹和品牌条由 `js/poster.js` 在画布上现场绘制。
+- **声音全部现场合成。** 六派各有招牌音色，生成时把这句话的声纹当成一小段旋律播出来，不带任何音频文件。
+- **占用控制。** 每轮有时间上限，空闲会弹「还在吗」，结果页倒计时后自动回到首页，高峰模式下缩短时长并关掉换一张。
+- **新手指引。** 第一次打开会问要不要带着走一遍，指哪点哪。
+- **中英双语。** 大屏右上角切换语言，手机页面跟着走。
 
-In the prototype, settings, stats, the queue, and redemption records all live in the browser's localStorage. The big screen, the phone pages, and the admin console only share data when they are opened in the same browser on the same computer.
+原型里的参数、统计、排队和核销记录都存在浏览器的 localStorage 里，大屏、手机页和后台在同一台电脑的同一个浏览器里打开才能互通。
 
-## Run locally
+## 本地运行
 
-No install or build needed. After downloading, double-click `index.html` to open it. A local server is more complete (the dots in the pour animation can sample the illustration colors):
+不需要安装和构建。下载以后直接双击 `index.html` 就能打开；用本地服务器打开效果更完整（生成动画里的网点能取到插画颜色）：
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Then open http://localhost:8000/ .
+然后打开 http://localhost:8000/ 。
 
-## Common Questions
-
-**Is SONIFIZZ a real brand?**  
-No. SONIFIZZ is a fictional sparkling-water brand.
-
-**Does it need a backend?**  
-No. In the prototype, settings, stats, the queue, and redemption records all live in the browser's localStorage. The big screen, the phone pages, and the admin console only share data when they are opened in the same browser on the same computer.
-
-**Why run a local server?**  
-No install or build needed. After downloading, double-click `index.html` to open it. A local server is more complete: the dots in the pour animation can sample the illustration colors.
-
-## Directory
+## 目录结构
 
 ```
 index.html  share.html  prefill.html  admin.html  404.html
-css/        base.css shared styles, screen.css big screen, mobile.css phone pages, admin.css admin
+css/        base.css 公共样式、screen.css 大屏、mobile.css 手机页、admin.css 后台
 js/
-  config.js     personas, styles, default settings, bilingual copy
-  store.js      local storage, share-link encoding and decoding
-  safety.js     content-safety rules and word list
-  poster.js     poster drawing
-  sound.js      sound synthesis
-  scene.js      desktop-demo background
-  fit.js        shell scaling
-  pour.js       pour animation while generating
-  voicerec.js   say it once to record a voiceprint
-  screen.js     big-screen state machine and per-screen logic
-  tour.js       first-time guide
-  share.js  reveal.js  prefill.js  admin.js   per-page scripts
-assets/     brand art (cans, share cover) and the poster-background pool
-vendor/     fonts, icons, QR code, and the Chinese line-breaking library
-docs/       screenshots for the README
+  config.js     人格、风格、默认参数、双语文案
+  store.js      本地存储、分享链接编解码
+  safety.js     内容安全规则和词表
+  poster.js     海报绘制
+  sound.js      声音合成
+  scene.js      电脑演示的背景
+  fit.js        外壳缩放
+  pour.js       生成中的倒汽动画
+  voicerec.js   念一遍录声纹
+  screen.js     大屏的状态机和各屏逻辑
+  tour.js       新手指引
+  share.js  reveal.js  prefill.js  admin.js   各页面的脚本
+assets/     品牌图（罐子、分享封面）和海报底图素材池
+vendor/     字体、图标、二维码和中文断行库
+docs/       README 用的截图
 ```
 
-## License
+## 许可证
 
-Code is released under the [MIT License](LICENSE).
+代码按 [MIT 许可证](LICENSE) 开源。
 
-Third-party assets are used under their own licenses: the Doto font (SIL OFL 1.1, see `vendor/fonts/OFL.txt`), 得意黑 Smiley Sans (SIL OFL 1.1, see `vendor/fonts/smiley/OFL.txt`), Phosphor icons (MIT), qrcode-generator (MIT), and the BudouX Chinese line-breaking model (Apache-2.0, see the header of `vendor/budoux-zh.js`).
+第三方素材按各自的许可证使用：Doto 字体（SIL OFL 1.1，见 `vendor/fonts/OFL.txt`）、得意黑 Smiley Sans（SIL OFL 1.1，见 `vendor/fonts/smiley/OFL.txt`）、Phosphor 图标（MIT）、qrcode-generator（MIT）、BudouX 中文断行模型（Apache-2.0，见 `vendor/budoux-zh.js` 文件头）。
